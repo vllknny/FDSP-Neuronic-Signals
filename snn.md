@@ -31,3 +31,19 @@ this factors. AdSense, marketing, market history, GSearch API, and others can be
 weights. This is by far, the most crucial part of the EDA behind both finance and quantitative domains.
 
 This will be the next step I will work on.
+
+Variable |	        Implementation |	    Role
+Current stake	    stake	Base term.      Sunk interest sets the floor.
+Influence factor	1 + β·influence	        Multiplier for reach (news, word of mouth, trend, portfolio history).
+Salience	        |y_mu| normalized	    Magnitude of the perceived yield.
+Certainty	        1/(1+CV²)	            Tight yield distribution gives a weight near 1, a wide one shrinks it.
+Immediacy	        exp(-δt)	            Exponential discounting of time to yield.
+Efficacy	        bounded 0..1	        Confidence that the player can move the outcome.
+
+The weights feed the game in two places. The share ω_i of total vested interest sets both the synaptic weight and how much each player counts toward coalition strength C. Each player's payoff then depends on C, and a quantal-response fixed point gives their action probability, which becomes their Poisson rate. Opponents (direction = -1) get negative weights, so a high-interest regulator acts as a veto on the neuron.
+
+Caveats on Accuracy
+
+The multiplicative form and the exponents are modeling choices, not derived results. For accuracy, treat them as free parameters (beta, delta, or per-term exponents) and fit them against observed outcomes such as who actually committed capital and when.
+Efficacy is the weakest input here, I left it as a bounded 0..1 input. Track record, for example a Beta posterior over past successful interventions, taking its mean as efficacy and its width as a penalty would be ideal.
+Data sources would replace the placeholder arrays. Search or ad-spend intensity could feed influence and salience, market history could feed y_mu/y_sd, and position or filing data could feed stake. Each is a proxy we should find how validation factors behavior.
