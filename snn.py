@@ -4,6 +4,11 @@ from brian2 import *
 
 start_scope()
 
+
+
+# The weights are just interest_i × w_max, so higher-interest stakeholders push the neuron toward threshold harder. 
+# Multiplying by N keeps the average weight at w_max after normalizing.
+# Vested interest here seems arbitrary as implementation has no real calculatiion behind it. Next step.
 # --- Vested interest -> synaptic weights ---
 interests = np.array([0.9, 0.7, 0.5, 0.3, 0.1])   # one per stakeholder
 interests = interests / interests.sum()            # normalize (optional)
